@@ -35,7 +35,7 @@ unsigned char, int, int, unsigned char);
 for (i = 0; *(format + i); i++)
 {
 len = 0;
-if (*(format + i) == %)
+if (*(format + i) == '%')
 {
 tmp = 0;
 flags = handle_flags(format + i + 1, &tmp);
@@ -51,7 +51,7 @@ i += tmp + 1;
 ret += f(args, output, flags, wid, prec, len);
 continue;
 }
-else if (*(format + i + tmp + 1) == 0)
+else if (*(format + i + tmp + 1) == '\0')
 {
 ret = -1;
 break;

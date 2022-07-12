@@ -20,11 +20,11 @@ unsigned char handle_flags(const char *flag, char *index)
 int i, j;
 unsigned char ret = 0;
 flag_t flags[] = {
-{+, PLUS},
+{'+', PLUS},
 {' ', SPACE},
-{#, HASH},
-{0, ZERO},
-{-, NEG},
+{'#', HASH},
+{'0', ZERO},
+{'-', NEG},
 {0, 0}
 };
 
@@ -59,13 +59,13 @@ return (ret);
 */
 unsigned char handle_length(const char *modifier, char *index)
 {
-if (*modifier == h)
+if (*modifier == 'h')
 {
 (*index)++;
 return (SHORT);
 }
 
-else if (*modifier == l)
+else if (*modifier == 'l')
 {
 (*index)++;
 return (LONG);
@@ -87,11 +87,11 @@ int handle_width(va_list args, const char *modifier, char *index)
 {
 int value = 0;
 
-while ((modifier >= '0' && *modifier <= '9') || (*modifier == ''))
+while ((*modifier >= '0' && *modifier <= '9') || (*modifier == '*'))
 {
 (*index)++;
 
-if (modifier == '')
+if (*modifier == '*')
 {
 value = va_arg(args, int);
 if (value <= 0)
@@ -100,7 +100,7 @@ return (value);
 }
 
 value *= 10;
-value += (*modifier - 0);
+value += (*modifier - '0');
 modifier++;
 }
 
@@ -122,26 +122,26 @@ int handle_precision(va_list args, const char *modifier, char *index)
 {
 int value = 0;
 
-if (*modifier != .)
+if (*modifier != '.')
 return (-1);
 
 modifier++;
 (*index)++;
 
 if ((*modifier <= '0' || *modifier > '9') &&
-modifier != '')
+*modifier != '*')
 {
-if (*modifier == 0)
+if (*modifier == '0')
 (*index)++;
 return (0);
 }
 
 while ((*modifier >= '0' && *modifier <= '9') ||
-(modifier == ''))
+(*modifier == '*'))
 {
 (*index)++;
 
-if (modifier == '')
+if (*modifier == '*')
 {
 value = va_arg(args, int);
 if (value <= 0)
@@ -150,7 +150,7 @@ return (value);
 }
 
 value *= 10;
-value += (*modifier - 0);
+value += (*modifier - '0');
 modifier++;
 }
 
@@ -184,7 +184,7 @@ converter_t converters[] = {
 {'p', convert_p},
 {'r', convert_r},
 {'R', convert_R},
-{'0', NULL}
+{0, NULL}
 };
 
 for (i = 0; converters[i].func; i++)

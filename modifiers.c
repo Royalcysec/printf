@@ -21,7 +21,7 @@ unsigned int print_width(buffer_t *output, unsigned int printed,
 unsigned char flags, int wid)
 {
 unsigned int ret = 0;
-char width = '';
+char width = ' ';
 
 if (NEG_FLAG == 0)
 {
@@ -46,7 +46,7 @@ unsigned int print_string_width(buffer_t *output,
 unsigned char flags, int wid, int prec, int size)
 {
 unsigned int ret = 0;
-char width = '';
+char width = ' ';
 
 if (NEG_FLAG == 0)
 {
@@ -59,7 +59,7 @@ return (ret);
 }
 
 /**
- * print_neg_width - Stores trailing spaces to a buffer for a - flag.
+ * print_neg_width - Stores trailing spaces to a buffer for a '-' flag.
  * @output: A buffer_t struct containing a character array.
  * @printed: The current number of bytes already stored to output
  *           for a given specifier.
@@ -72,7 +72,7 @@ unsigned int print_neg_width(buffer_t *output, unsigned int printed,
 unsigned char flags, int wid)
 {
 unsigned int ret = 0;
-char width = '';
+char width = ' ';
 
 if (NEG_FLAG == 1)
 {
